@@ -84,7 +84,8 @@ kubectl get pods -n adventure
 В репозитории настроен GitHub Actions workflow для `demo-app`:
 
 - на `pull_request` и на push в ветки workflow проверяет, что Docker-образ собирается;
-- на push в `main` workflow дополнительно публикует образ в `ghcr.io/rogoveo/k8s-dnd/quest-board`;
+- на push в `main` workflow дополнительно публикует multi-arch образ в `ghcr.io/rogoveo/k8s-dnd/quest-board`;
+- публикуются платформы `linux/amd64` и `linux/arm64`, поэтому образ можно тянуть и на Apple Silicon, и на обычных x86_64 runner/серверах;
 - для публикации используется встроенный `GITHUB_TOKEN`, поэтому отдельный секрет для GHCR не нужен.
 
 После первого успешного прогона образ можно будет тянуть так:
