@@ -79,6 +79,20 @@ kubectl get pods -n adventure
 - умеет видеть, есть ли секретный токен;
 - пишет заметки партии в каталог `/data`, чтобы тема хранения была видна не только в теории.
 
+## CI и Docker
+
+В репозитории настроен GitHub Actions workflow для `demo-app`:
+
+- на `pull_request` и на push в ветки workflow проверяет, что Docker-образ собирается;
+- на push в `main` workflow дополнительно публикует образ в `ghcr.io/rogoveo/k8s-dnd/quest-board`;
+- для публикации используется встроенный `GITHUB_TOKEN`, поэтому отдельный секрет для GHCR не нужен.
+
+После первого успешного прогона образ можно будет тянуть так:
+
+```bash
+docker pull ghcr.io/rogoveo/k8s-dnd/quest-board:main
+```
+
 ## Дополнительные материалы
 
 - [Словарь терминов](./glossary/terms.md)
