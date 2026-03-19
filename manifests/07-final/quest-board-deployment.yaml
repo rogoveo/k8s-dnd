@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quest-board
+  namespace: adventure
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quest-board
+  template:
+    metadata:
+      labels:
+        app: quest-board
+    spec:
+      containers:
+        - name: quest-board
+          image: quest-board:local
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: quest-board-config
+            - secretRef:
+                name: quest-board-secret
+          volumeMounts:
+            - name: notes
+              mountPath: /data
+      volumes:
+        - name: notes
+          persistentVolumeClaim:
+            claimName: quest-board-data
+

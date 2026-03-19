@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quest-board
+  namespace: adventure
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quest-board
+  template:
+    metadata:
+      labels:
+        app: quest-board
+    spec:
+      containers:
+        - name: quest-board
+          image: python:3.12-alpine
+          command: ["python", "-m", "http.server", "8080"]
+          ports:
+            - containerPort: 8080
+

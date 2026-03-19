@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: quest-board
+  namespace: adventure
+spec:
+  selector:
+    app: quest-board
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+
